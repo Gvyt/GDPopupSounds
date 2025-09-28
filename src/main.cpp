@@ -1,5 +1,6 @@
 #include <Geode/modify/FLAlertLayer.hpp>
 #include <Geode/Geode.hpp>
+#include <Geode/fmod/fmod.hpp>
 #include <regex>
 
 using namespace geode::prelude;
@@ -14,10 +15,12 @@ class $modify(GDPopupSoundsHook,FLAlertLayer) {
 
         std::regex error_pattern("- \\d+");
 
-        if (std::regex_search(fullText, error_patter)) {
-            geode::audio::playSound("resources/GJ_Error.ogg"_spr);
+        if (std::regex_search(fullText, error_pattern)) {
+            FMODAudioEngine::sharedEngine()->playEffect("/rescources/GJ_Error.ogg"_spr);
+            // im fucking lazy shut up geode::audio::playSound("resources/GJ_Error.ogg"_spr);
                } else {
-                geode::audio::playSound("resources/GJ_Popup.ogg"_spr);
+                FMODAudioEngine::sharedEngine()->playEffect("/resources/GJ_Popup.ogg"_spr);
+                // geode::audio::playSound("resources/GJ_Popup.ogg"_spr);
                }
     }
         return true;
