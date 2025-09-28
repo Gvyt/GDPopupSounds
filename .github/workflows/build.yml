@@ -1,0 +1,33 @@
+name: Build Geode Mod
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [windows, mac, android32, android64, ios]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Build mod for ${{ matrix.target }}
+        uses: geode-sdk/build-geode-mod@main
+        id: build
+        with:
+          # Which platforms to build for
+          targets: ${{ matrix.target }}
+          # Set this to true to combine the builds in the final step
+          combine: true
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.build.outputs.artifact-name }}
+          path: ${{ steps.build.outputs.build-output }}
