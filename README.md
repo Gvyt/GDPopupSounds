@@ -3,7 +3,8 @@ A mod that adds error and popup sounds.
 
 <img src="logo.png" width="150" alt="the mod's logo" />
 
-*Update logo.png to change your mod's icon (please)*
+* Geode Devs: Update logo.png to change your mod's icon (please) *
+* Me: no :D *
 
 ## How to install
 1. ~~Install with geode or import the .geode file.~~
