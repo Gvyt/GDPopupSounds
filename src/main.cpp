@@ -21,4 +21,5 @@ class $modify(GDPopupSoundsHook,FLAlertLayer) {
                }
     }
         return true;
-    };
+    }
+};
