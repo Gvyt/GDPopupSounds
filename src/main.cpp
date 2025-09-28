@@ -1,39 +1,27 @@
-/**
- * Include the Geode headers.
- */
+#include <Geode/modify/FLAlertLayer.hpp>
 #include <Geode/Geode.hpp>
+#include <regex>
 
-/**
- * Brings cocos2d and all Geode namespaces to the current scope.
- */
 using namespace geode::prelude;
 
-/**
- * `$modify` lets you extend and modify GD's classes.
- * To hook a function in Geode, simply $modify the class
- * and write a new function definition with the signature of
- * the function you want to hook.
- *
- * Here we use the overloaded `$modify` macro to set our own class name,
- * so that we can use it for button callbacks.
- *
- * Notice the header being included, you *must* include the header for
- * the class you are modifying, or you will get a compile error.
- *
- * Another way you could do this is like this:
- *
- * struct MyMenuLayer : Modify<MyMenuLayer, MenuLayer> {};
- */
-#include <Geode/modify/MenuLayer.hpp>
-class $modify(MyMenuLayer, MenuLayer) {
-	/**
-	 * Typically classes in GD are initialized using the `init` function, (though not always!),
-	 * so here we use it to add our own button to the bottom menu.
-	 *
-	 * Note that for all hooks, your signature has to *match exactly*,
-	 * `void init()` would not place a hook!
-	*/
-	bool init() {
+class $modify(GDPopupSoundsHook,FLAlertLayer) {
+    bool init(FLAlertLayer*self, gd::string title, gd::string message, gd::string button, gd::string button2, bool button2Visible, bool useSmallFont) {
+        if (! FLAlertLayer::init(self, title, message, button, button2, button2Visible, useSmallFont)) {
+            return false;
+        }
+
+        const std::string fullText = title + " " + message;
+
+        std::regex error_pattern("- \\d+");
+
+        if (std::regex_search(fullText, error_patter)) {
+            geode::audio::playSound("resources/GJ_Error.ogg"_spr);
+               } else {
+                geode::audio::playSound("resources/GJ_Popup.ogg"_spr);
+               }
+    }
+        return true;
+    }
 		/**
 		 * We call the original init function so that the
 		 * original class is properly initialized.
