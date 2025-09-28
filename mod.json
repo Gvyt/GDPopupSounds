@@ -8,7 +8,7 @@
 	},
 	"id": "GvYoutube.GDPopupSounds",
 	"name": "GDPopupSounds",
-	"version": "1",
+	"version": "0.0.1",
 	"developer": "GvYoutube",
 	"description": "A mod that adds sounds for the ingame popups.",
 	"dependencies": {
